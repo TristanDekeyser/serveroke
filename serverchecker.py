@@ -9,13 +9,16 @@ def naar_Json2(letter, server):
     with open("keuzes.json", "a") as f2:
         f2.write(json.dumps({"keuze": letter, "server address": server}, sort_keys = True))
 
+servers = []
 if __name__=='__main__':
     if len(sys.argv) > 1:
         match sys.argv[1]:
             case "a":
                 print ("u heef gekozen om een server toe te voegen")
+                servers.append(sys.argv[1])
             case "b":
                 print ("u heeft gekozen om een server te verwijderen")
+                servers.remove(sys.argv[1])
             case "c":
                 print ("u heef gekozen om de server lijst te laten zien")
             case _:
@@ -28,8 +31,11 @@ if __name__=='__main__':
             case "a":
                 print ("u heef gekozen om een server toe te voegen")
                 server = input("geef een server")
+                servers.append(server)
             case "b":
                 print ("u heeft gekozen om een server te verwijderen")
+                server = input("geef een server")
+                servers.remove(server)
             case "c":
                 print ("u heef gekozen om de server lijst te laten zien")
             case _:
