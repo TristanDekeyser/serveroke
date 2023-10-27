@@ -8,6 +8,8 @@ if __name__=='__main__':
                 print ("u heeft gekozen om een server te verwijderen")
             case "c":
                 print ("u heef gekozen om de server lijst te laten zien")
+            case _:
+                print ("dit is geen geldige optie")
     else:
         ant = input("wil je servers toevoegen, verwijderen of een lijst laten zien? (a/b/c)")
         match ant:
@@ -17,3 +19,5 @@ if __name__=='__main__':
                 print ("u heeft gekozen om een server te verwijderen")
             case "c":
                 print ("u heef gekozen om de server lijst te laten zien")
+            case _:
+                print ("dit is geen geldige optie")
