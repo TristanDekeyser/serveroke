@@ -1,4 +1,10 @@
 import sys
+import json
+
+def naar_Json():
+    with open("keuzes.json", "w") as f2:
+        f2.write(json.dumps({"keuze": sys.argv[1]}, sort_keys = True))
+
 if __name__=='__main__':
     if len(sys.argv) > 1:
         match sys.argv[1]:
@@ -10,6 +16,8 @@ if __name__=='__main__':
                 print ("u heef gekozen om de server lijst te laten zien")
             case _:
                 print ("dit is geen geldige optie")
+        naar_Json()
+
     else:
         ant = input("wil je servers toevoegen, verwijderen of een lijst laten zien? (a/b/c)")
         match ant:
