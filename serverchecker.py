@@ -1,5 +1,6 @@
 import sys
 import json
+from ping3 import ping
 
 def update_json():
     with open("keuzes.json", "w") as f:
@@ -22,7 +23,11 @@ def keuze():
         elif sys.argv[1] == "checks":
             checks()
     elif len(sys.argv) == 1:
-        menu()
+        keus = input("wil je checks uitvoeren of naar het menu gaan (checks/menu)")
+        if keus == "checks":
+            checks()
+        else:
+            menu()
 
 def menu():
     blijven = True
@@ -64,7 +69,12 @@ def cli():
     menu()
 
 def checks():
-    print("checks optie zal later komen")
+    for server in servers:
+        resp = ping(server)
+        if resp == False:
+            print(f"{server} kon niet worden bereikt")
+        else:
+            print(f"{server} is up and running")
 
 if __name__=='__main__':
     servers = []
