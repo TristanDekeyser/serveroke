@@ -33,6 +33,7 @@ def menu():
                 print ("u heeft gekozen om een server te verwijderen")
                 server = input("geef een server: ")
                 servers.remove(server)
+                update_json()
                 # naar_Json2(ant, server)
             case "c":
                 print ("u heef gekozen om de server lijst te laten zien")
@@ -51,7 +52,7 @@ def cli():
             # naar_Json()
         case "b":
             print ("u heeft gekozen om een server te verwijderen")
-            servers.remove(sys.argv[2])
+            del servers[-1]
             # naar_Json()
         case "c":
             print ("u heef gekozen om de server lijst te laten zien")
@@ -59,13 +60,18 @@ def cli():
         case _:
             print ("dit is geen geldige optie")
     menu()
+
 if __name__=='__main__':
     servers = []
     try:
         with open ("keuzes.json", "r") as f:
             servers = json.loads(f.read())
+        if len(sys.argv) > 1:
+            cli()
+        else:
+            menu()
     except IOError:
-        servers[]
+        servers = []
         if len(sys.argv) > 1:
             cli()
         else:
