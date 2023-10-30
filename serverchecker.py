@@ -6,6 +6,10 @@ def update_json():
     with open("keuzes.json", "w") as f:
         f.write(json.dumps(servers))
 
+def update_checks_json():
+    with open("checks.json", "w") as f:
+        f.write(json.dumps(checkers))
+
 
 def list_servers(servers):
     for index, server in enumerate(servers):
@@ -17,6 +21,12 @@ def keuze():
             cli()
         elif sys.argv[3] == "checks":
             checks()
+        else:
+            keus = input("wil je checks uitvoeren of naar het menu gaan (checks/menu)")
+            if keus == "checks":
+                checks()
+            else:
+                menu()
     elif len(sys.argv) == 2:
         if sys.argv[1] == "man":
             menu()
@@ -73,17 +83,25 @@ def checks():
         resp = ping(server)
         if resp == False:
             print(f"{server} kon niet worden bereikt")
+            checkers.append(False)
+            update_checks_json()
         else:
             print(f"{server} is up and running")
+            checkers.append(True)
+            update_checks_json()
 
 if __name__=='__main__':
     servers = []
+    checkers = []
     try:
         with open ("keuzes.json", "r") as f:
             servers = json.loads(f.read())
+        with open ("checks.json", "r") as f:
+            checkers = json.loads(f.read())
         keuze()
     except IOError:
         servers = []
+        checkers = []
         if len(sys.argv) > 1:
             cli()
         else:
