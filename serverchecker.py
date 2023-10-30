@@ -79,6 +79,7 @@ def cli():
     menu()
 
 def checks():
+    checkers = []
     for server in servers:
         resp = ping(server)
         if resp == False:
