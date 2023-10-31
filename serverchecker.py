@@ -86,17 +86,15 @@ def checks():
     with open('template.html', 'r') as template_file:
         template = Template(template_file.read())
     while doorgaan:
-        checkers = []
         for server in servers:
             resp = ping(server)
             if resp == False:
                 print(f"{server} kon niet worden bereikt")
                 checkers.append(False)
-                update_checks_json()
             else:
                 print(f"{server} is up and running")
                 checkers.append(True)
-                update_checks_json()
+            update_checks_json()
         data = list(zip(servers, checkers))
         html = template.render(data=data)
         with open('server_checks.html', 'w') as html_file:
@@ -109,8 +107,6 @@ if __name__=='__main__':
     try:
         with open ("keuzes.json", "r") as f:
             servers = json.loads(f.read())
-        with open ("checks.json", "r") as f:
-            checkers = json.loads(f.read())
         keuze()
     except IOError:
         servers = []
