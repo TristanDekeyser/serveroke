@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Server en Check-lijst</title>
+  </head>
+  <body>
+    <h1>Server en Check-lijst</h1>
+    <ul>
+      {% for server, check in data %}
+      <li><strong>{{ server }}</strong>: {{ check }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

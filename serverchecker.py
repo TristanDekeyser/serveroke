@@ -2,6 +2,7 @@ import sys
 import json
 from ping3 import ping
 import time
+from jinja2 import Template
 
 def update_json():
     with open("keuzes.json", "w") as f:
@@ -82,6 +83,8 @@ def cli():
 def checks():
     doorgaan = True
     print("de checks blijven hethalen (elke 2 minuten) tot u het programma verlaat")
+    with open('template.html', 'r') as template_file:
+        template = Template(template_file.read())
     while doorgaan:
         checkers = []
         for server in servers:
@@ -94,6 +97,10 @@ def checks():
                 print(f"{server} is up and running")
                 checkers.append(True)
                 update_checks_json()
+        data = list(zip(servers, checkers))
+        html = template.render(data=data)
+        with open('server_checks.html', 'w') as html_file:
+            html_file.write(html)
         time.sleep(120)
 
 if __name__=='__main__':

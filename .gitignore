@@ -1,3 +1,4 @@
 virtualenv
 keuzes.json
 checks.json
+server_checks.html
