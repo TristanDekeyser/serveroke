@@ -1,6 +1,7 @@
 import sys
 import json
 from ping3 import ping
+import time
 
 def update_json():
     with open("keuzes.json", "w") as f:
@@ -79,17 +80,21 @@ def cli():
     menu()
 
 def checks():
-    checkers = []
-    for server in servers:
-        resp = ping(server)
-        if resp == False:
-            print(f"{server} kon niet worden bereikt")
-            checkers.append(False)
-            update_checks_json()
-        else:
-            print(f"{server} is up and running")
-            checkers.append(True)
-            update_checks_json()
+    doorgaan = True
+    print("de checks blijven hethalen (elke 2 minuten) tot u het programma verlaat")
+    while doorgaan:
+        checkers = []
+        for server in servers:
+            resp = ping(server)
+            if resp == False:
+                print(f"{server} kon niet worden bereikt")
+                checkers.append(False)
+                update_checks_json()
+            else:
+                print(f"{server} is up and running")
+                checkers.append(True)
+                update_checks_json()
+        time.sleep(120)
 
 if __name__=='__main__':
     servers = []
